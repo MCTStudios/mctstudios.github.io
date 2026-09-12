@@ -1,0 +1,896 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+
+/* -------------------- */
+/* RESET */
+/* -------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    background: #050509;
+
+    color: white;
+
+    font-family: "Inter", sans-serif;
+
+    overflow-x: hidden;
+
+}
+
+
+/* -------------------- */
+/* NAVBAR */
+/* -------------------- */
+
+.navbar {
+
+    position: fixed;
+
+    top: 0;
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 20px 8%;
+
+    background: rgba(5, 5, 9, 0.75);
+
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+    z-index: 1000;
+
+}
+
+
+.nav-logo {
+
+    font-family: "Orbitron", sans-serif;
+
+    font-weight: 800;
+
+    font-size: 22px;
+
+    letter-spacing: 2px;
+
+}
+
+
+.nav-logo span {
+
+    color: #8b4dff;
+
+}
+
+
+nav {
+
+    display: flex;
+
+    gap: 28px;
+
+}
+
+
+nav a {
+
+    color: #b7b7c8;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+
+}
+
+
+nav a:hover {
+
+    color: #00d9ff;
+
+}
+
+
+/* -------------------- */
+/* HERO */
+/* -------------------- */
+
+.hero {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    padding: 120px 8% 80px;
+
+    overflow: hidden;
+
+}
+
+
+.hero-background {
+
+    position: absolute;
+
+    width: 900px;
+
+    height: 900px;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(0, 174, 255, 0.20),
+            transparent 60%
+        );
+
+    left: -300px;
+
+    top: -200px;
+
+}
+
+
+.hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 700px;
+
+    height: 700px;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(139, 77, 255, 0.25),
+            transparent 65%
+        );
+
+    right: -250px;
+
+    bottom: -250px;
+
+}
+
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+    max-width: 850px;
+
+}
+
+
+.subtitle {
+
+    font-family: "Orbitron", sans-serif;
+
+    color: #00d9ff;
+
+    font-size: 12px;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.hero h1 {
+
+    font-family: "Orbitron", sans-serif;
+
+    font-size: clamp(55px, 10vw, 120px);
+
+    letter-spacing: 8px;
+
+    line-height: 1;
+
+    margin-bottom: 25px;
+
+    text-shadow:
+
+        0 0 30px rgba(0, 174, 255, 0.4);
+
+}
+
+
+.hero h1 span {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #00c8ff,
+            #8b4dff
+        );
+
+    -webkit-background-clip: text;
+
+    color: transparent;
+
+}
+
+
+.hero h2 {
+
+    font-family: "Orbitron", sans-serif;
+
+    font-size: clamp(22px, 4vw, 42px);
+
+    margin-bottom: 25px;
+
+}
+
+
+.hero-description {
+
+    max-width: 600px;
+
+    margin: auto;
+
+    color: #a6a6b5;
+
+    line-height: 1.7;
+
+    font-size: 17px;
+
+}
+
+
+.hero-buttons {
+
+    margin-top: 40px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+}
+
+
+.btn {
+
+    padding: 14px 25px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+
+}
+
+
+.primary {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #008cff,
+            #8b4dff
+        );
+
+    color: white;
+
+    box-shadow:
+
+        0 0 25px rgba(76, 120, 255, 0.35);
+
+}
+
+
+.primary:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+
+        0 0 35px rgba(76, 120, 255, 0.6);
+
+}
+
+
+.secondary {
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    color: white;
+
+}
+
+
+.secondary:hover {
+
+    border-color: #8b4dff;
+
+}
+
+
+/* -------------------- */
+/* SECTIONS */
+/* -------------------- */
+
+.section {
+
+    padding: 120px 8%;
+
+    position: relative;
+
+}
+
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 60px;
+
+}
+
+
+.section-title p {
+
+    color: #00d9ff;
+
+    font-family: "Orbitron", sans-serif;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.section-title h2 {
+
+    font-size: 40px;
+
+    font-family: "Orbitron", sans-serif;
+
+}
+
+
+.section-title h2 span {
+
+    color: #8b4dff;
+
+}
+
+
+/* -------------------- */
+/* CREATOR CARDS */
+/* -------------------- */
+
+.creator-grid {
+
+    display: grid;
+
+    grid-template-columns:
+
+        repeat(2, 1fr);
+
+    gap: 30px;
+
+    max-width: 1100px;
+
+    margin: auto;
+
+}
+
+
+.creator-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 45px;
+
+    border-radius: 20px;
+
+    background:
+
+        rgba(255,255,255,0.03);
+
+    border:
+
+        1px solid rgba(255,255,255,0.08);
+
+    transition: 0.4s;
+
+}
+
+
+.creator-card:hover {
+
+    transform: translateY(-8px);
+
+    border-color:
+
+        rgba(139,77,255,0.5);
+
+}
+
+
+.creator-glow {
+
+    position: absolute;
+
+    width: 250px;
+
+    height: 250px;
+
+    border-radius: 50%;
+
+    filter: blur(50px);
+
+    opacity: 0.35;
+
+    right: -100px;
+
+    top: -100px;
+
+}
+
+
+.francesco .creator-glow {
+
+    background: #008cff;
+
+}
+
+
+.carmine .creator-glow {
+
+    background: #8b4dff;
+
+}
+
+
+.creator-content {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+.creator-role {
+
+    color: #00d9ff;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.creator-card h3 {
+
+    font-family: "Orbitron", sans-serif;
+
+    font-size: 28px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.creator-card p:not(.creator-role) {
+
+    color: #a6a6b5;
+
+    line-height: 1.7;
+
+    margin-bottom: 25px;
+
+}
+
+
+.creator-button {
+
+    display: inline-block;
+
+    text-decoration: none;
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    background:
+
+        rgba(255,255,255,0.08);
+
+    transition: 0.3s;
+
+}
+
+
+.creator-button:hover {
+
+    background: #8b4dff;
+
+}
+
+
+/* -------------------- */
+/* FOUNDER */
+/* -------------------- */
+
+.founder-section {
+
+    background:
+
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(90,40,180,0.06),
+            transparent
+        );
+
+}
+
+
+.founder-grid {
+
+    display: grid;
+
+    grid-template-columns:
+
+        repeat(2, 1fr);
+
+    gap: 30px;
+
+    max-width: 900px;
+
+    margin: auto;
+
+}
+
+
+.founder-card {
+
+    text-align: center;
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    background:
+
+        rgba(255,255,255,0.025);
+
+    border:
+
+        1px solid rgba(255,255,255,0.07);
+
+}
+
+
+.founder-icon {
+
+    width: 80px;
+
+    height: 80px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 0 auto 25px;
+
+    border-radius: 50%;
+
+    font-family: "Orbitron", sans-serif;
+
+    font-size: 30px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #008cff,
+            #8b4dff
+        );
+
+    box-shadow:
+
+        0 0 25px rgba(100,80,255,0.4);
+
+}
+
+
+.founder-card h3 {
+
+    font-size: 22px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.founder-name {
+
+    color: #00d9ff;
+
+    margin-bottom: 18px;
+
+}
+
+
+.founder-card p:last-child {
+
+    color: #a6a6b5;
+
+}
+
+
+/* -------------------- */
+/* SOCIAL */
+/* -------------------- */
+
+.social-grid {
+
+    display: grid;
+
+    grid-template-columns:
+
+        repeat(2, 1fr);
+
+    gap: 25px;
+
+    max-width: 900px;
+
+    margin: auto;
+
+}
+
+
+.social-card {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 35px;
+
+    border-radius: 18px;
+
+    text-decoration: none;
+
+    color: white;
+
+    background:
+
+        rgba(255,255,255,0.03);
+
+    border:
+
+        1px solid rgba(255,255,255,0.08);
+
+    transition: 0.3s;
+
+}
+
+
+.social-card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+
+.social-card p {
+
+    color: #a6a6b5;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.social-card h3 {
+
+    font-size: 22px;
+
+}
+
+
+.social-card span {
+
+    font-size: 28px;
+
+}
+
+
+.instagram:hover {
+
+    border-color: #d62976;
+
+    box-shadow:
+
+        0 0 30px rgba(214,41,118,0.2);
+
+}
+
+
+.youtube:hover {
+
+    border-color: #ff0000;
+
+    box-shadow:
+
+        0 0 30px rgba(255,0,0,0.2);
+
+}
+
+
+/* -------------------- */
+/* FOOTER */
+/* -------------------- */
+
+footer {
+
+    padding: 70px 20px;
+
+    text-align: center;
+
+    border-top:
+
+        1px solid rgba(255,255,255,0.06);
+
+}
+
+
+footer h2 {
+
+    font-family: "Orbitron", sans-serif;
+
+    margin-bottom: 15px;
+
+}
+
+
+footer h2 span {
+
+    color: #8b4dff;
+
+}
+
+
+footer p {
+
+    color: #777788;
+
+}
+
+
+.copyright {
+
+    margin-top: 25px;
+
+    font-size: 13px;
+
+}
+
+
+/* -------------------- */
+/* MOBILE */
+/* -------------------- */
+
+@media (max-width: 768px) {
+
+    .navbar {
+
+        padding: 18px 6%;
+
+    }
+
+
+    nav {
+
+        gap: 14px;
+
+    }
+
+
+    nav a {
+
+        font-size: 12px;
+
+    }
+
+
+    .creator-grid,
+
+    .founder-grid,
+
+    .social-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .section {
+
+        padding: 90px 6%;
+
+    }
+
+
+    .hero {
+
+        padding-left: 6%;
+
+        padding-right: 6%;
+
+    }
+
+
+    .section-title h2 {
+
+        font-size: 30px;
+
+    }
+
+}
