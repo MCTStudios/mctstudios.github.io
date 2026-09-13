@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MCT Studios</title>
+    <meta name="description" content="Accedi all'area riservata di MCT Studios">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <style>
+        /* =========================
+           RESET E IMPOSTAZIONI BASE
+        ========================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #050509;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           COLORI
+        ========================= */
+        :root {
+            --cyan: #00cfff;
+            --blue: #0066ff;
+            --purple: #8b2cff;
+            --card: #101018;
+            --text-secondary: #b7b7c5;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 7%;
+            background: rgba(5, 5, 9, 0.88);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(139, 44, 255, 0.25);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        .nav-logo span {
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .back-home {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-home:hover {
+            color: var(--cyan);
+        }
+
+        /* =========================
+           CONTAINER LOGIN
+        ========================= */
+        .login-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 60px;
+            position: relative;
+        }
+
+        .login-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(0, 207, 255, 0.12), transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(139, 44, 255, 0.14), transparent 40%);
+            pointer-events: none;
+        }
+
+        .login-card {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            padding: 40px;
+            border-radius: 24px;
+            background: rgba(16, 16, 24, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 0 50px rgba(0, 102, 255, 0.15),
+                0 0 70px rgba(139, 44, 255, 0.1);
+            text-align: center;
+        }
+
+        .login-card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 15px rgba(0, 207, 255, 0.4));
+        }
+
+        .login-card h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #00cfff, #ffffff, #9b4dff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .login-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* =========================
+           FORM & INPUTS
+        ========================= */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: rgba(5, 5, 9, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 207, 255, 0.25);
+            background: rgba(5, 5, 9, 0.9);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .form-options a {
+            color: var(--cyan);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .form-options a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           BOTTONI
+        ========================= */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #0077ff, #8b2cff);
+            box-shadow: 0 0 25px rgba(139, 44, 255, 0.25);
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(0, 207, 255, 0.35);
+        }
+
+        .login-footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .login-footer a {
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: #888899;
+            background: #040407;
+            font-size: 14px;
+        }
+
+        footer strong {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <a href="index.html" class="nav-logo">
+            <img src="assets/logo.png" alt="Logo MCT Studios">
+            <span>MCT Studios</span>
+        </a>
+
+        <a href="index.html" class="back-home">
+            ← Torna alla Home
+        </a>
+    </nav>
+
+    <!-- SECTION LOGIN -->
+    <section class="login-section">
+        <div class="login-card">
+            <img src="assets/logo.png" alt="MCT Studios Logo">
+            <h2>Accedi</h2>
+            <p>Inserisci le tue credenziali per continuare</p>
+
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="email">Email o Username</label>
+                    <input type="text" id="email" name="email" placeholder="nome@esempio.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-options">
+                    <a href="#">Password dimenticata?</a>
+                </div>
+
+                <button type="submit" class="btn-submit">Accedi</button>
+            </form>
+
+            <div class="login-footer">
+                Non hai un account? <a href="#">Registrati</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 <strong>MCT Studios</strong> — Tutti i diritti riservati.</p>
+    </footer>
+
+</body>
+</html>
