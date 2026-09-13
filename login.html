@@ -171,6 +171,12 @@
             font-weight: bold;
         }
 
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
         .form-group input {
             width: 100%;
             padding: 14px 16px;
@@ -183,6 +189,25 @@
             transition: 0.3s;
         }
 
+        .password-wrapper input {
+            padding-right: 45px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .toggle-password:hover {
+            color: var(--cyan);
+        }
+
         .form-group input:focus {
             border-color: var(--cyan);
             box-shadow: 0 0 15px rgba(0, 207, 255, 0.25);
@@ -191,7 +216,7 @@
 
         .form-options {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             font-size: 13px;
             margin-bottom: 25px;
@@ -201,6 +226,7 @@
             color: var(--cyan);
             text-decoration: none;
             transition: 0.3s;
+            cursor: pointer;
         }
 
         .form-options a:hover {
@@ -229,20 +255,63 @@
             box-shadow: 0 0 35px rgba(0, 207, 255, 0.35);
         }
 
-        .login-footer {
-            margin-top: 25px;
-            font-size: 14px;
+        /* =========================
+           MODAL RECUPERO PASSWORD
+        ========================= */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 5, 9, 0.85);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: rgba(16, 16, 24, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0, 207, 255, 0.2);
+        }
+
+        .modal-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .modal-card p {
             color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
-        .login-footer a {
+        .btn-close-modal {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .btn-close-modal:hover {
+            border-color: var(--cyan);
             color: var(--cyan);
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .login-footer a:hover {
-            text-decoration: underline;
         }
 
         /* =========================
@@ -281,10 +350,10 @@
     <section class="login-section">
         <div class="login-card">
             <img src="assets/logo.png" alt="MCT Studios Logo">
-            <h2>Bentornato su MCT Studios!</h2>
-            <p>Inserisci le tue credenziali per continuare</p>
+            <h2>Accedi</h2>
+            <p>Area riservata ai membri autorizzati</p>
 
-            <form action="#" method="POST">
+            <form id="loginForm">
                 <div class="form-group">
                     <label for="email">Email o Username</label>
                     <input type="text" id="email" name="email" placeholder="nome@esempio.com" required>
@@ -292,23 +361,66 @@
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                        <button type="button" class="toggle-password" id="togglePassword">👁️</button>
+                    </div>
                 </div>
 
                 <div class="form-options">
-                    <a href="#">Password dimenticata?</a>
+                    <a id="forgotPasswordBtn">Password dimenticata?</a>
                 </div>
 
                 <button type="submit" class="btn-submit">Accedi</button>
             </form>
-            
         </div>
     </section>
+
+    <!-- MODAL PASSWORD DIMENTICATA -->
+    <div class="modal-overlay" id="forgotModal">
+        <div class="modal-card">
+            <h3>Recupero Password</h3>
+            <p>Trattandosi di un'area privata ad accessi gestiti direttamente dai fondatori, per richiedere un reset della password scrivi a:<br><br><strong style="color: var(--cyan);">mail@mctstudios.online</strong></p>
+            <button class="btn-close-modal" id="closeModalBtn">Chiudi</button>
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer>
         <p>© 2026 <strong>MCT Studios</strong> — Tutti i diritti riservati.</p>
     </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Toggle visibilità password
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+
+        // Gestione Modal Password Dimenticata
+        const forgotBtn = document.getElementById('forgotPasswordBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modal = document.getElementById('forgotModal');
+
+        forgotBtn.addEventListener('click', () => modal.classList.add('active'));
+        closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
+
+        // Chiudi modal cliccando fuori dalla card
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+
+        // Gestione Invio Form (Simulazione)
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Funzionalità di autenticazione pronta per essere collegata al tuo backend o sistema di login!');
+        });
+    </script>
 
 </body>
 </html>
