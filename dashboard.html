@@ -3,63 +3,68 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
 <script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyDRKSc1TjyWkULLAIkNSKCJQdhGL2YC7V4",
-        authDomain: "mctstudios-auth.firebaseapp.com",
-        projectId: "mctstudios-auth",
-        storageBucket: "mctstudios-auth.firebasestorage.app",
-        messagingSenderId: "599724018113",
-        appId: "1:599724018113:web:d6e228e7d82a400d360740",
-        measurementId: "G-NLTKEVP3EK"
-    };
+    document.addEventListener("DOMContentLoaded", () => {
+        const firebaseConfig = {
+            apiKey: "AIzaSyDRKSc1TjyWkULLAIkNSKCJQdhGL2YC7V4",
+            authDomain: "mctstudios-auth.firebaseapp.com",
+            projectId: "mctstudios-auth",
+            storageBucket: "mctstudios-auth.firebasestorage.app",
+            messagingSenderId: "599724018113",
+            appId: "1:599724018113:web:d6e228e7d82a400d360740",
+            measurementId: "G-NLTKEVP3EK"
+        };
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    // Funzione per ricavare un nome pulito dall'email
-    function calcolaNomePulito(email) {
-        if (!email) return "Membro";
-        // Prende la parte prima della @ (es. "russocarmine483")
-        let username = email.split('@')[0].toLowerCase();
-
-        // Riconosce i nomi noti nell'username ed estrae il nome pulito
-        if (username.includes("MRCRTV")) return "Carmine";
-        if (username.includes("francesco")) return "Francesco";
-
-        // Per altri utenti futuri: rimuove numeri/punti e prende la prima parola
-        let nomePuro = username.replace(/[0-9._-]/g, '');
-        return nomePuro.charAt(0).toUpperCase() + nomePuro.slice(1);
-    }
-
-    // Controllo Sessione Utente
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            // Se l'utente ha già un displayName salvato su Firebase usa quello,
-            // altrimenti calcola il nome pulito e aggiorna il profilo sul Cloud
-            if (user.displayName) {
-                document.getElementById('userName').textContent = user.displayName;
-            } else {
-                const nomeDaImpostare = calcolaNomePulito(user.email);
-                
-                // Salva il nome direttamente nel profilo cloud Firebase dell'utente
-                user.updateProfile({
-                    displayName: nomeDaImpostare
-                }).then(() => {
-                    document.getElementById('userName').textContent = nomeDaImpostare;
-                }).catch(() => {
-                    document.getElementById('userName').textContent = nomeDaImpostare;
-                });
-            }
-        } else {
-            // Nessun utente loggato -> Reindirizza al Login
-            window.location.href = 'login.html';
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
         }
-    });
+        const auth = firebase.auth();
 
-    // Logout
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-        auth.signOut().then(() => {
-            window.location.href = 'login.html';
+        // Funzione per ricavare il nome pulito senza esporre liste
+        function calcolaNomePulito(email) {
+            if (!email) return "Membro";
+            let username = email.split('@')[0].toLowerCase();
+            if (username.includes("mrcrtv")) return "Carmine";
+            if (username.includes("francesco")) return "Francesco";
+            let nomePuro = username.replace(/[0-9._-]/g, '');
+            return nomePuro.charAt(0).toUpperCase() + nomePuro.slice(1);
+        }
+
+        // Gestione Sessione Utente
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // Cerca l'elemento per il nome (supporta sia id 'userName' che altri id comuni)
+                const userElement = document.getElementById('userName') || document.querySelector('.user-name');
+                
+                const applicaNome = (nome) => {
+                    if (userElement) {
+                        userElement.textContent = nome;
+                    }
+                };
+
+                if (user.displayName) {
+                    applicaNome(user.displayName);
+                } else {
+                    const nomeDaImpostare = calcolaNomePulito(user.email);
+                    user.updateProfile({ displayName: nomeDaImpostare })
+                        .finally(() => {
+                            applicaNome(nomeDaImpostare);
+                        });
+                }
+            } else {
+                // Se non c'è sessione attiva va al Login
+                window.location.href = 'login.html';
+            }
         });
+
+        // Gestione Logout in sicurezza
+        const logoutBtn = document.getElementById('logoutBtn') || document.querySelector('.logout-btn') || document.querySelector('button[onclick*="logout"]');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                auth.signOut().then(() => {
+                    window.location.href = 'login.html';
+                });
+            });
+        }
     });
 </script>
