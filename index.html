@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCT Studios</title>
+    <meta name="description" content="MCT Studios - Community ufficiale di Francesco Imperato e MRCRTV_">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================
+           RESET E IMPOSTAZIONI BASE
+        ========================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #050509;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           COLORI
+        ========================= */
+        :root {
+            --cyan: #00cfff;
+            --blue: #0066ff;
+            --purple: #8b2cff;
+            --dark-purple: #220044;
+            --background: #050509;
+            --card: #101018;
+            --text-secondary: #b7b7c5;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 7%;
+            background: rgba(5, 5, 9, 0.88);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(139, 44, 255, 0.25);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav-logo img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        .nav-logo span {
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        /* Tasto Login in Navbar */
+        .nav-login-btn {
+            padding: 8px 20px !important;
+            font-size: 14px !important;
+            border-radius: 8px;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 130px 20px 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 207, 255, 0.12), transparent 35%),
+                radial-gradient(circle at 80% 60%, rgba(139, 44, 255, 0.14), transparent 35%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+        }
+
+        .hero-banner {
+            width: 100%;
+            max-width: 1100px;
+            border-radius: 25px;
+            display: block;
+            margin: 0 auto 35px;
+            box-shadow: 0 0 50px rgba(0, 102, 255, 0.2), 0 0 70px rgba(139, 44, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-logo {
+            width: 210px;
+            max-width: 70%;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 25px rgba(0, 207, 255, 0.3));
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 80px);
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #00cfff, #ffffff, #9b4dff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .hero-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .button-primary {
+            color: white;
+            background: linear-gradient(90deg, #0077ff, #8b2cff);
+            box-shadow: 0 0 25px rgba(139, 44, 255, 0.25);
+        }
+
+        .button-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(0, 207, 255, 0.35);
+        }
+
+        .button-secondary {
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .button-secondary:hover {
+            border-color: var(--cyan);
+            transform: translateY(-3px);
+        }
+
+        /* =========================
+           SEZIONI
+        ========================= */
+        section {
+            padding: 100px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(32px, 5vw, 50px);
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           FONDATORI
+        ========================= */
+        .founders {
+            background: linear-gradient(180deg, #050509, #090914);
+        }
+
+        .founders-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .founder-card {
+            position: relative;
+            overflow: hidden;
+            padding: 40px;
+            border-radius: 22px;
+            background: linear-gradient(145deg, rgba(0, 207, 255, 0.08), rgba(139, 44, 255, 0.08));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .founder-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 207, 255, 0.4);
+        }
+
+        .founder-icon {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        .founder-card h3 {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        .founder-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+           VIDEO
+        ========================= */
+        .videos {
+            position: relative;
+            background: #07070d;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 35px;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .video-card {
+            background: var(--card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 0 40px rgba(139, 44, 255, 0.15);
+        }
+
+        .video-header {
+            padding: 22px;
+        }
+
+        .video-header h3 {
+            font-size: 22px;
+            margin-bottom: 7px;
+        }
+
+        .video-header p {
+            color: var(--text-secondary);
+        }
+
+        .video-placeholder {
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #080d20, #18062b);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .video-placeholder a {
+            text-decoration: none;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #0066ff, #8b2cff);
+            transition: 0.3s;
+        }
+
+        .video-placeholder a:hover {
+            transform: scale(1.05);
+        }
+
+        /* =========================
+           MCT SOCIAL
+        ========================= */
+        .social {
+            background: linear-gradient(135deg, #080c1c, #11051d);
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .social-card {
+            padding: 45px;
+            text-align: center;
+            border-radius: 22px;
+            background: rgba(10, 10, 18, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .social-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--purple);
+        }
+
+        .social-icon {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        .social-card h3 {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .social-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
+        .about-content {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+            padding: 45px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, rgba(0, 207, 255, 0.06), rgba(139, 44, 255, 0.08));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: #888899;
+            background: #040407;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+        @media (max-width: 800px) {
+            nav {
+                padding: 12px 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 75px 6%;
+            }
+
+            .hero {
+                padding-top: 110px;
+            }
+
+            .founders-grid,
+            .video-grid,
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-logo {
+                width: 170px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+    <nav>
+        <div class="nav-logo">
+            <img src="assets/logo.png" alt="Logo MCT Studios">
+            <span>MCT Studios</span>
+        </div>
+
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#fondatori">Fondatori</a></li>
+                <li><a href="#video">Video</a></li>
+                <li><a href="#social">Social</a></li>
+            </ul>
+
+            <!-- TASTO LOGIN -->
+            <a href="login.html" class="button button-primary nav-login-btn">Login</a>
+        </div>
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <img src="assets/banner.png" alt="MCT Studios Banner" class="hero-banner">
+            <img src="assets/logo.png" alt="MCT Studios Logo" class="hero-logo">
+
+            <h1>MCT Studios</h1>
+
+            <p>
+                Una community creata da Francesco Imperato e Carmine Russo,
+                due creator uniti dalla passione per YouTube, i contenuti e la loro community.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="https://www.youtube.com/channel/UCnWK3DxNpi8BKR3pwV5o1Pg" target="_blank" class="button button-primary">
+                    ▶ YouTube MCT Studios
+                </a>
+
+                <a href="https://www.instagram.com/mct__studios/" target="_blank" class="button button-secondary">
+                    ◎ Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         FONDATORI
+    ========================== -->
+    <section class="founders" id="fondatori">
+        <div class="section-title">
+            <h2>I fondatori</h2>
+            <p>Le persone dietro MCT Studios.</p>
+        </div>
+
+        <div class="founders-grid">
+            <!-- FRANCESCO -->
+            <div class="founder-card">
+                <div class="founder-icon">🎬</div>
+                <h3>Francesco Imperato</h3>
+                <p>Co-fondatore e owner di MCT Studios.</p>
+                <a href="https://www.youtube.com/@therealfrancescoimp" target="_blank" class="button button-primary">
+                    Visita il canale
+                </a>
+            </div>
+
+            <!-- CARMINE -->
+            <div class="founder-card">
+                <div class="founder-icon">🎮</div>
+                <h3>Carmine Russo</h3>
+                <p>Fondatore e owner di MCT Studios, conosciuto online come MRCRTV_.</p>
+                <a href="https://www.youtube.com/channel/UCvkrdVTL7Uft-QPkUD_A4Cw" target="_blank" class="button button-primary">
+                    Visita il canale
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         VIDEO
+    ========================== -->
+    <section class="videos" id="video">
+        <div class="section-title">
+            <h2>Gli ultimi contenuti</h2>
+            <p>Scopri i contenuti pubblicati dai creator di MCT Studios.</p>
+        </div>
+
+        <div class="video-grid">
+            <!-- FRANCESCO -->
+            <div class="video-card">
+                <div class="video-header">
+                    <h3>🎬 Francesco Imperato</h3>
+                    <p>Guarda gli ultimi video pubblicati sul suo canale.</p>
+                </div>
+                <div class="video-placeholder">
+                    <a href="https://www.youtube.com/@therealfrancescoimp/videos" target="_blank">
+                        Guarda gli ultimi video ▶
+                    </a>
+                </div>
+            </div>
+
+            <!-- MRCRTV -->
+            <div class="video-card">
+                <div class="video-header">
+                    <h3>🎮 MRCRTV_</h3>
+                    <p>Guarda gli ultimi video pubblicati sul suo canale.</p>
+                </div>
+                <div class="video-placeholder">
+                    <a href="https://www.youtube.com/channel/UCvkrdVTL7Uft-QPkUD_A4Cw/videos" target="_blank">
+                        Guarda gli ultimi video ▶
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================== -->
+    <section>
+        <div class="section-title">
+            <h2>Cos'è MCT Studios?</h2>
+        </div>
+
+        <div class="about-content">
+            <p>
+                MCT Studios è una community fondata da Carmine Russo e Francesco Imperato.
+                <br><br>
+                Un progetto che unisce contenuti, creator e community, con l'obiettivo
+                di creare uno spazio condiviso attorno alla passione per YouTube e il mondo dei contenuti digitali.
+            </p>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         SOCIAL
+    ========================== -->
+    <section class="social" id="social">
+        <div class="section-title">
+            <h2>Seguici</h2>
+            <p>Rimani aggiornato sui contenuti e sulle novità di MCT Studios.</p>
+        </div>
+
+        <div class="social-grid">
+            <!-- YOUTUBE -->
+            <div class="social-card">
+                <div class="social-icon">▶</div>
+                <h3>YouTube</h3>
+                <p>Guarda tutti i contenuti della community MCT Studios.</p>
+                <a href="https://www.youtube.com/channel/UCnWK3DxNpi8BKR3pwV5o1Pg" target="_blank" class="button button-primary">
+                    Vai al canale
+                </a>
+            </div>
+
+            <!-- INSTAGRAM -->
+            <div class="social-card">
+                <div class="social-icon">◎</div>
+                <h3>Instagram</h3>
+                <p>Segui MCT Studios su Instagram per non perderti post e aggiornamenti.</p>
+                <a href="https://www.instagram.com/mct__studios/" target="_blank" class="button button-primary">
+                    Segui MCT Studios
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+    <footer>
+        <p>
+            © 2026 <strong>MCT Studios</strong> — Tutti i diritti riservati. <br>
+            Per contatti: mail@mctstudios.online — Astenersi falsi.
+        </p>
+    </footer>
+
+</body>
+</html>
