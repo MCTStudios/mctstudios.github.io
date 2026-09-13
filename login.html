@@ -8,19 +8,8 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
 
     <style>
-        /* =========================
-           RESET E IMPOSTAZIONI BASE
-        ========================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
         body {
             font-family: Arial, Helvetica, sans-serif;
             background: #050509;
@@ -30,10 +19,6 @@
             justify-content: space-between;
             overflow-x: hidden;
         }
-
-        /* =========================
-           COLORI
-        ========================= */
         :root {
             --cyan: #00cfff;
             --blue: #0066ff;
@@ -41,328 +26,125 @@
             --card: #101018;
             --text-secondary: #b7b7c5;
         }
-
-        /* =========================
-           NAVBAR
-        ========================= */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            top: 0; left: 0; width: 100%; z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between;
             padding: 15px 7%;
             background: rgba(5, 5, 9, 0.88);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(139, 44, 255, 0.25);
         }
-
         .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: none;
+            display: flex; align-items: center; gap: 10px;
+            font-size: 20px; font-weight: bold; text-decoration: none;
         }
-
-        .nav-logo img {
-            width: 42px;
-            height: 42px;
-            object-fit: contain;
-        }
-
+        .nav-logo img { width: 42px; height: 42px; object-fit: contain; }
         .nav-logo span {
             background: linear-gradient(90deg, var(--cyan), var(--purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            -webkit-background-clip: text; background-clip: text; color: transparent;
         }
-
         .back-home {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            color: white; text-decoration: none; font-size: 14px;
+            transition: 0.3s; display: flex; align-items: center; gap: 6px;
         }
+        .back-home:hover { color: var(--cyan); }
 
-        .back-home:hover {
-            color: var(--cyan);
-        }
-
-        /* =========================
-           CONTAINER LOGIN
-        ========================= */
         .login-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 20px 60px;
-            position: relative;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 120px 20px 60px; position: relative;
         }
-
         .login-section::before {
-            content: "";
-            position: absolute;
-            inset: 0;
+            content: ""; position: absolute; inset: 0;
             background: 
                 radial-gradient(circle at 30% 30%, rgba(0, 207, 255, 0.12), transparent 40%),
                 radial-gradient(circle at 70% 70%, rgba(139, 44, 255, 0.14), transparent 40%);
             pointer-events: none;
         }
-
         .login-card {
-            position: relative;
-            width: 100%;
-            max-width: 440px;
-            padding: 40px;
-            border-radius: 24px;
-            background: rgba(16, 16, 24, 0.75);
-            backdrop-filter: blur(20px);
+            position: relative; width: 100%; max-width: 440px;
+            padding: 40px; border-radius: 24px;
+            background: rgba(16, 16, 24, 0.75); backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 
-                0 0 50px rgba(0, 102, 255, 0.15),
-                0 0 70px rgba(139, 44, 255, 0.1);
+            box-shadow: 0 0 50px rgba(0, 102, 255, 0.15), 0 0 70px rgba(139, 44, 255, 0.1);
             text-align: center;
         }
-
         .login-card img {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 15px;
+            width: 80px; height: 80px; margin-bottom: 15px;
             filter: drop-shadow(0 0 15px rgba(0, 207, 255, 0.4));
         }
-
         .login-card h2 {
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 28px; margin-bottom: 8px;
             background: linear-gradient(90deg, #00cfff, #ffffff, #9b4dff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            -webkit-background-clip: text; background-clip: text; color: transparent;
         }
-
-        .login-card p {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-
-        /* =========================
-           FORM & INPUTS
-        ========================= */
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .password-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
+        .login-card p { color: var(--text-secondary); font-size: 14px; margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; font-weight: bold; }
+        .password-wrapper { position: relative; display: flex; align-items: center; }
         .form-group input {
-            width: 100%;
-            padding: 14px 16px;
-            border-radius: 12px;
-            background: rgba(5, 5, 9, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: white;
-            font-size: 15px;
-            outline: none;
-            transition: 0.3s;
+            width: 100%; padding: 14px 16px; border-radius: 12px;
+            background: rgba(5, 5, 9, 0.6); border: 1px solid rgba(255, 255, 255, 0.12);
+            color: white; font-size: 15px; outline: none; transition: 0.3s;
         }
-
-        .password-wrapper input {
-            padding-right: 45px;
-        }
-
+        .password-wrapper input { padding-right: 45px; }
         .toggle-password {
-            position: absolute;
-            right: 12px;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.3s;
+            position: absolute; right: 12px; background: none; border: none;
+            color: var(--text-secondary); cursor: pointer; font-size: 16px; transition: 0.3s;
         }
-
-        .toggle-password:hover {
-            color: var(--cyan);
-        }
-
+        .toggle-password:hover { color: var(--cyan); }
         .form-group input:focus {
-            border-color: var(--cyan);
-            box-shadow: 0 0 15px rgba(0, 207, 255, 0.25);
-            background: rgba(5, 5, 9, 0.9);
+            border-color: var(--cyan); box-shadow: 0 0 15px rgba(0, 207, 255, 0.25); background: rgba(5, 5, 9, 0.9);
         }
-
-        .form-options {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
-
-        .form-options a {
-            color: var(--cyan);
-            text-decoration: none;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .form-options a:hover {
-            text-decoration: underline;
-        }
-
-        /* =========================
-           BOTTONI
-        ========================= */
+        .form-options { display: flex; justify-content: flex-end; align-items: center; font-size: 13px; margin-bottom: 25px; }
+        .form-options a { color: var(--cyan); text-decoration: none; transition: 0.3s; cursor: pointer; }
+        .form-options a:hover { text-decoration: underline; }
         .btn-submit {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: none;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
+            width: 100%; padding: 14px; border-radius: 12px; border: none;
+            color: white; font-weight: bold; font-size: 16px; cursor: pointer;
             background: linear-gradient(90deg, #0077ff, #8b2cff);
-            box-shadow: 0 0 25px rgba(139, 44, 255, 0.25);
-            transition: 0.3s;
+            box-shadow: 0 0 25px rgba(139, 44, 255, 0.25); transition: 0.3s;
         }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 35px rgba(0, 207, 255, 0.35);
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(0, 207, 255, 0.35); }
+        .error-message {
+            color: #ff4757; font-size: 13px; margin-bottom: 15px; display: none; text-align: left;
         }
-
-        /* =========================
-           MODAL RECUPERO PASSWORD
-        ========================= */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(5, 5, 9, 0.85);
-            backdrop-filter: blur(10px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-card {
-            background: rgba(16, 16, 24, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 0 40px rgba(0, 207, 255, 0.2);
-        }
-
-        .modal-card h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .modal-card p {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .btn-close-modal {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 15px;
-            width: 100%;
-            transition: 0.3s;
-        }
-
-        .btn-close-modal:hover {
-            border-color: var(--cyan);
-            color: var(--cyan);
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
         footer {
-            text-align: center;
-            padding: 25px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            color: #888899;
-            background: #040407;
-            font-size: 14px;
+            text-align: center; padding: 25px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: #888899; background: #040407; font-size: 14px;
         }
-
-        footer strong {
-            color: white;
-        }
+        footer strong { color: white; }
     </style>
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
     <nav>
         <a href="index.html" class="nav-logo">
             <img src="assets/logo.png" alt="Logo MCT Studios">
             <span>MCT Studios</span>
         </a>
-
-        <a href="index.html" class="back-home">
-            ← Torna alla Home
-        </a>
+        <a href="index.html" class="back-home">← Torna alla Home</a>
     </nav>
 
-    <!-- SECTION LOGIN -->
     <section class="login-section">
         <div class="login-card">
             <img src="assets/logo.png" alt="MCT Studios Logo">
-            <h2>Bentornato su MCT Studios!</h2>
+            <h2>Bentornato/a su MCT Studios!</h2>
             <p>Area riservata ai membri autorizzati</p>
+
+            <div class="error-message" id="errorMessage"></div>
 
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="email">Email o Username</label>
-                    <input type="text" id="email" name="email" placeholder="nome@esempio.com" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="nome@esempio.com" required>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="password-wrapper">
-                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                        <input type="password" id="password" placeholder="••••••••" required>
                         <button type="button" class="toggle-password" id="togglePassword">👁️</button>
                     </div>
                 </div>
@@ -371,56 +153,102 @@
                     <a id="forgotPasswordBtn">Password dimenticata?</a>
                 </div>
 
-                <button type="submit" class="btn-submit">Accedi</button>
+                <button type="submit" class="btn-submit" id="btnSubmit">Accedi</button>
             </form>
         </div>
     </section>
 
-    <!-- MODAL PASSWORD DIMENTICATA -->
-    <div class="modal-overlay" id="forgotModal">
-        <div class="modal-card">
-            <h3>Recupero Password</h3>
-            <p>Trattandosi di un'area privata ad accessi gestiti direttamente dai fondatori, per richiedere un reset della password scrivi a:<br><br><strong style="color: var(--cyan);">mail@mctstudios.online</strong></p>
-            <button class="btn-close-modal" id="closeModalBtn">Chiudi</button>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
     <footer>
         <p>© 2026 <strong>MCT Studios</strong> — Tutti i diritti riservati.</p>
     </footer>
 
-    <!-- JAVASCRIPT -->
-    <script>
-        // Toggle visibilità password
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
+    <!-- FIREBASE SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
+    <script>
+        // CONFIGURAZIONE FIREBASE MCT STUDIOS
+        const firebaseConfig = {
+            apiKey: "AIzaSyDRKSc1TjyWkULLAIkNSKCJQdhGL2YC7V4",
+            authDomain: "mctstudios-auth.firebaseapp.com",
+            projectId: "mctstudios-auth",
+            storageBucket: "mctstudios-auth.firebasestorage.app",
+            messagingSenderId: "599724018113",
+            appId: "1:599724018113:web:d6e228e7d82a400d360740",
+            measurementId: "G-NLTKEVP3EK"
+        };
+
+        // Inizializza Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Elementi DOM
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('errorMessage');
+        const togglePassword = document.getElementById('togglePassword');
+        const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+        const btnSubmit = document.getElementById('btnSubmit');
+
+        // Toggle visibilità password
         togglePassword.addEventListener('click', () => {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
             togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
         });
 
-        // Gestione Modal Password Dimenticata
-        const forgotBtn = document.getElementById('forgotPasswordBtn');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const modal = document.getElementById('forgotModal');
+        // Gestione Login con Firebase
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            errorMessage.style.display = 'none';
+            btnSubmit.textContent = 'Verifica in corso...';
+            btnSubmit.disabled = true;
 
-        forgotBtn.addEventListener('click', () => modal.classList.add('active'));
-        closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
 
-        // Chiudi modal cliccando fuori dalla card
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('active');
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Login riuscito -> vai alla Dashboard
+                    window.location.href = 'dashboard.html';
+                })
+                .catch((error) => {
+                    btnSubmit.textContent = 'Accedi';
+                    btnSubmit.disabled = false;
+                    errorMessage.style.display = 'block';
+                    
+                    switch(error.code) {
+                        case 'auth/user-not-found':
+                        case 'auth/wrong-password':
+                        case 'auth/invalid-credential':
+                            errorMessage.textContent = 'Email o password non valide.';
+                            break;
+                        case 'auth/too-many-requests':
+                            errorMessage.textContent = 'Troppi tentativi falliti. Riprova più tardi.';
+                            break;
+                        default:
+                            errorMessage.textContent = 'Errore di accesso: ' + error.message;
+                    }
+                });
         });
 
-        // Gestione Invio Form (Simulazione)
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Funzionalità di autenticazione pronta per essere collegata al tuo backend o sistema di login!');
+        // Recupero Password reale tramite Email Firebase
+        forgotPasswordBtn.addEventListener('click', () => {
+            const email = emailInput.value.trim();
+            if (!email) {
+                alert('Inserisci prima il tuo indirizzo Email nel campo sopra per recuperare la password.');
+                return;
+            }
+
+            auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    alert('Email inviata a ' + email + '! Controlla la posta (inclusa la cartella SPAM) per impostare una nuova password.');
+                })
+                .catch((error) => {
+                    alert('Errore invio email: ' + error.message);
+                });
         });
     </script>
-
 </body>
 </html>
