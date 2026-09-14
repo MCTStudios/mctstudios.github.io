@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MCT Studios</title>
+    <meta name="description" content="Area riservata membri MCT Studios">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { min-height: 100vh; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #050509;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+        :root {
+            --cyan: #00cfff;
+            --blue: #0066ff;
+            --purple: #8b2cff;
+            --card: #101018;
+            --text-secondary: #b7b7c5;
+            --red: #ff4757;
+        }
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%; z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 15px 7%;
+            background: rgba(5, 5, 9, 0.88);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(139, 44, 255, 0.25);
+        }
+        .nav-logo {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 20px; font-weight: bold; text-decoration: none;
+        }
+        .nav-logo img { width: 42px; height: 42px; object-fit: contain; }
+        .nav-logo span {
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .user-status {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(255, 255, 255, 0.05); padding: 6px 14px;
+            border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        .user-status .dot {
+            width: 8px; height: 8px; background: #2ed573;
+            border-radius: 50%; box-shadow: 0 0 10px #2ed573;
+        }
+
+        .dashboard-container {
+            flex: 1; padding: 130px 8% 60px; max-width: 1200px;
+            margin: 0 auto; width: 100%; position: relative;
+        }
+        .dashboard-container::before {
+            content: ""; position: absolute; inset: 0;
+            background: 
+                radial-gradient(circle at 15% 20%, rgba(0, 207, 255, 0.1), transparent 35%),
+                radial-gradient(circle at 85% 80%, rgba(139, 44, 255, 0.12), transparent 35%);
+            pointer-events: none;
+        }
+        .welcome-header { text-align: left; margin-bottom: 45px; position: relative; }
+        .welcome-header h1 {
+            font-size: clamp(32px, 5vw, 48px); margin-bottom: 8px;
+            background: linear-gradient(90deg, #ffffff, var(--cyan), #9b4dff);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .welcome-header p { color: var(--text-secondary); font-size: 16px; }
+
+        .dashboard-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px; position: relative;
+        }
+        .dash-card {
+            background: rgba(16, 16, 24, 0.75); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px;
+            padding: 30px 25px; display: flex; flex-direction: column;
+            justify-content: space-between; text-decoration: none; color: white;
+            transition: 0.3s ease; position: relative; overflow: hidden;
+        }
+        .dash-card:hover {
+            transform: translateY(-7px); border-color: rgba(0, 207, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 207, 255, 0.15);
+        }
+        .dash-card-icon { font-size: 40px; margin-bottom: 20px; display: inline-block; }
+        .dash-card h3 { font-size: 22px; margin-bottom: 10px; }
+        .dash-card p { color: var(--text-secondary); font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
+        .dash-card-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            font-weight: bold; font-size: 14px; color: var(--cyan);
+        }
+        .dash-card-footer span { transition: 0.3s; }
+        .dash-card:hover .dash-card-footer span { transform: translateX(5px); }
+
+        .badge {
+            position: absolute; top: 20px; right: 20px;
+            background: linear-gradient(90deg, #0077ff, #8b2cff);
+            color: white; font-size: 11px; font-weight: bold;
+            padding: 4px 10px; border-radius: 12px;
+            box-shadow: 0 0 10px rgba(139, 44, 255, 0.4);
+        }
+        .dash-card.card-logout { border-color: rgba(255, 71, 87, 0.2); cursor: pointer; }
+        .dash-card.card-logout:hover {
+            border-color: rgba(255, 71, 87, 0.6); box-shadow: 0 0 30px rgba(255, 71, 87, 0.2);
+        }
+        .dash-card.card-logout .dash-card-footer { color: var(--red); }
+
+        footer {
+            text-align: center; padding: 25px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: #888899; background: #040407; font-size: 14px;
+        }
+        footer strong { color: white; }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="dashboard.html" class="nav-logo">
+            <img src="assets/logo.png" alt="Logo MCT Studios">
+            <span>MCT Studios</span>
+        </a>
+
+        <div class="user-status">
+            <span class="dot"></span>
+            <span id="userName">Online</span>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <header class="welcome-header">
+            <h1>Bentornato/a 👋</h1>
+            <p>Seleziona un'opzione per accedere alle funzionalità dell'area riservata.</p>
+        </header>
+
+        <section class="dashboard-grid">
+            <a href="webmail.html" class="dash-card">
+                <span class="badge">MCT Mail</span>
+                <div>
+                    <div class="dash-card-icon">📬</div>
+                    <h3>Casella di posta</h3>
+                    <p>Accedi ai messaggi riservati, alle comunicazioni di team e alle email ufficiali.</p>
+                </div>
+                <div class="dash-card-footer">Apri posta <span>→</span></div>
+            </a>
+
+            <a href="#" class="dash-card">
+                <span class="badge">Sincronizzato</span>
+                <div>
+                    <div class="dash-card-icon">📅</div>
+                    <h3>Calendario</h3>
+                    <p>Pianifica eventi, scadenze dei video e dirette. Condiviso in tempo reale tra tutti i membri.</p>
+                </div>
+                <div class="dash-card-footer">Vedi calendario <span>→</span></div>
+            </a>
+
+            <a href="#" class="dash-card">
+                <div>
+                    <div class="dash-card-icon">🔔</div>
+                    <h3>Novità</h3>
+                    <p>Leggi gli ultimi aggiornamenti di MCT Studios, i log di sistema e i comunicati interni.</p>
+                </div>
+                <div class="dash-card-footer">Scopri novità <span>→</span></div>
+            </a>
+
+            <div class="dash-card card-logout" id="logoutBtn">
+                <div>
+                    <div class="dash-card-icon">🚪</div>
+                    <h3>Esci</h3>
+                    <p>Disconnettiti dall'area personale in modo sicuro per terminare la sessione.</p>
+                </div>
+                <div class="dash-card-footer">Chiudi sessione <span>→</span></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 <strong>MCT Studios</strong> — Area Riservata Privata.</p>
+    </footer>
+
+    <!-- FIREBASE SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDRKSc1TjyWkULLAIkNSKCJQdhGL2YC7V4",
+            authDomain: "mctstudios-auth.firebaseapp.com",
+            projectId: "mctstudios-auth",
+            storageBucket: "mctstudios-auth.firebasestorage.app",
+            messagingSenderId: "599724018113",
+            appId: "1:599724018113:web:d6e228e7d82a400d360740",
+            measurementId: "G-NLTKEVP3EK"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Controllo Sessione Utente
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // Utente autenticato: ricava il nome dalla mail
+                let name = user.displayName || user.email.split('@')[0];
+                name = name.charAt(0).toUpperCase() + name.slice(1);
+                document.getElementById('userName').textContent = name;
+            } else {
+                // Nessun utente loggato -> reindirizza al Login
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            auth.signOut().then(() => {
+                window.location.href = 'login.html';
+            });
+        });
+    </script>
+
+</body>
+</html>
