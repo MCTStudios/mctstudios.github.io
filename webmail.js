@@ -374,9 +374,24 @@
   document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); el.search.focus(); } });
   el.refresh.addEventListener('click', () => loadMessages());
   el.accountSelect.addEventListener('change', async () => {
-    state.account = el.accountSelect.value; el.sidebarEmail.textContent = state.account; el.composeFrom.textContent = state.account;
-    closeReaderView(); await loadMessages();
-  });
+  const nextAccount = el.accountSelect.value;
+  if (!nextAccount || nextAccount === state.account) return;
+
+  state.account = nextAccount;
+  state.folder = 'inbox';
+  state.messages = [];
+  state.filtered = [];
+  state.selectedId = null;
+  state.selectedMessage = null;
+
+  el.sidebarEmail.textContent = state.account;
+  el.composeFrom.textContent = state.account;
+  el.search.value = '';
+
+  closeReaderView();
+  updateFolderChrome();
+  await loadMessages();
+});
   el.composeBtn.addEventListener('click', openCompose); el.closeCompose.addEventListener('click', closeCompose); el.composeBackdrop.addEventListener('click', closeCompose);
   el.composeForm.addEventListener('submit', sendMessage); el.closeReader.addEventListener('click', () => el.readerPanel.classList.remove('mobile-open'));
   el.toggleRead.addEventListener('click', () => setRead(!isRead(state.selectedMessage || {})));
