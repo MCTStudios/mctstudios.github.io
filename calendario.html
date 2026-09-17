@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MCT Calendar - MCT Studios</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="calendario.css">
+</head>
+<body>
+<nav>
+  <a href="dashboard.html" class="brand"><img src="assets/logo.png" alt=""><span>MCT Studios</span></a>
+  <div class="nav-actions">
+    <button id="settingsBtn" class="icon-btn" title="Impostazioni">⚙️</button>
+    <div class="user-pill"><span class="online"></span><span id="userName">Online</span></div>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <div><span class="eyebrow">MCT STUDIOS • CONDIVISO</span><h1>MCT <em>Calendar</em></h1>
+      <p>Eventi, riunioni, registrazioni e scadenze condivisi con tutti i membri.</p></div>
+    <button id="newEventBtn" class="primary">＋ Nuovo evento</button>
+  </header>
+
+  <section class="calendar-card">
+    <div class="calendar-toolbar">
+      <div class="month-nav">
+        <button id="prevBtn" class="ghost">‹</button>
+        <button id="todayBtn" class="ghost">Oggi</button>
+        <button id="nextBtn" class="ghost">›</button>
+      </div>
+      <h2 id="monthTitle"></h2>
+    </div>
+    <div class="weekdays"><span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span></div>
+    <div id="calendarGrid" class="calendar-grid"></div>
+  </section>
+</main>
+
+<div id="eventModal" class="modal hidden">
+ <div class="modal-card">
+  <div class="modal-head"><div><small>MCT CALENDAR</small><h2>Nuovo evento</h2></div><button class="close" data-close="eventModal">×</button></div>
+  <form id="eventForm">
+   <label>Titolo<input id="eventTitle" maxlength="100" required placeholder="Es. Registrazione video"></label>
+   <div class="two"><label>Data<input id="eventDate" type="date" required></label><label>Creato da<input id="eventCreator" maxlength="80" required placeholder="Es. Francesco Imperato"></label></div>
+   <div class="two"><label>Ora inizio<input id="eventStart" type="time"></label><label>Ora fine<input id="eventEnd" type="time"></label></div>
+   <label>Descrizione<textarea id="eventDescription" rows="4" maxlength="800" placeholder="Dettagli dell'evento..."></textarea></label>
+   <p class="privacy-note">👥 L'evento sarà visibile a tutti i membri MCT Studios.</p>
+   <button class="primary full" type="submit">Crea evento</button>
+  </form>
+ </div>
+</div>
+
+<div id="detailModal" class="modal hidden"><div class="modal-card">
+ <div class="modal-head"><div><small>DETTAGLI EVENTO</small><h2 id="detailTitle"></h2></div><button class="close" data-close="detailModal">×</button></div>
+ <div id="detailBody" class="detail-body"></div>
+ <button id="deleteEventBtn" class="danger hidden">Elimina evento</button>
+</div></div>
+
+<div id="settingsModal" class="modal hidden"><div class="modal-card">
+ <div class="modal-head"><div><small>MCT CALENDAR</small><h2>Impostazioni</h2></div><button class="close" data-close="settingsModal">×</button></div>
+ <section class="setting"><div><b>Esporta calendario</b><p>Scarica tutti gli eventi in formato .ics.</p></div><button id="exportBtn" class="ghost">Esporta .ics</button></section>
+ <section class="setting vertical"><div><b>Dimensione testo</b><p>Modifica lo zoom dei testi del calendario.</p></div>
+  <select id="fontSize"><option value="normal">Normale</option><option value="large">Grande</option><option value="xlarge">Molto grande</option></select>
+ </section>
+ <section class="setting"><div><b>Tema chiaro</b><p>Attiva una visualizzazione più luminosa.</p></div><label class="switch"><input id="lightTheme" type="checkbox"><span></span></label></section>
+</div></div>
+
+<div id="toast" class="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="calendario.js"></script>
+</body></html>
