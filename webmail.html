@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Webmail — MCT Studios</title>
+  <meta name="description" content="Webmail privata MCT Studios">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="webmail.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <div id="bootScreen" class="boot-screen" aria-live="polite">
+    <img src="assets/logo.png" alt="MCT Studios" class="boot-logo">
+    <div class="boot-title">MCT <span>MAIL</span></div>
+    <div class="loader"><span></span></div>
+    <p>Connessione alla casella protetta…</p>
+  </div>
+
+  <div id="app" class="mail-app" hidden>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand-row">
+        <a href="dashboard.html" class="brand" aria-label="Torna alla dashboard">
+          <img src="assets/logo.png" alt="">
+          <div><strong>MCT</strong><span>MAIL</span></div>
+        </a>
+        <button class="icon-btn sidebar-close" id="closeSidebar" aria-label="Chiudi menu">✕</button>
+      </div>
+
+      <button class="compose-btn" id="composeBtn">
+        <span class="compose-plus">＋</span>
+        <span>Nuovo messaggio</span>
+      </button>
+
+      <nav class="folders" aria-label="Cartelle posta">
+        <button class="folder active" data-folder="inbox"><span class="folder-icon">▣</span><span>Posta in arrivo</span><b id="count-inbox"></b></button>
+        <button class="folder" data-folder="sent"><span class="folder-icon">➤</span><span>Inviati</span><b id="count-sent"></b></button>
+        <button class="folder" data-folder="drafts"><span class="folder-icon">◫</span><span>Bozze</span><b id="count-drafts"></b></button>
+        <button class="folder" data-folder="junk"><span class="folder-icon">◇</span><span>Spam</span><b id="count-junk"></b></button>
+        <button class="folder" data-folder="trash"><span class="folder-icon">⌫</span><span>Cestino</span><b id="count-trash"></b></button>
+      </nav>
+
+      <div class="sidebar-spacer"></div>
+      <div class="account-box">
+        <div class="avatar" id="sidebarAvatar">M</div>
+        <div class="account-copy">
+          <strong id="sidebarName">MCT Studios</strong>
+          <span id="sidebarEmail">—</span>
+        </div>
+        <button class="icon-btn" id="logoutBtn" title="Esci" aria-label="Esci">↪</button>
+      </div>
+    </aside>
+
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn menu-btn" id="openSidebar" aria-label="Apri menu">☰</button>
+          <a href="dashboard.html" class="back-dashboard">← Dashboard</a>
+        </div>
+
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Cerca nella cartella…" autocomplete="off">
+          <kbd>CTRL K</kbd>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="icon-btn" id="refreshBtn" title="Aggiorna" aria-label="Aggiorna">↻</button>
+          <select id="accountSelect" class="account-select" aria-label="Casella email"></select>
+        </div>
+      </header>
+
+      <section class="mail-shell">
+        <section class="list-panel" id="listPanel">
+          <div class="list-header">
+            <div>
+              <div class="eyebrow">MCT STUDIOS / WEBMAIL</div>
+              <h1 id="folderTitle">Posta in arrivo</h1>
+              <p id="folderSubtitle">Le tue comunicazioni più recenti.</p>
+            </div>
+            <span class="sync-pill"><i></i><span id="syncText">Sincronizzata</span></span>
+          </div>
+
+          <div class="list-toolbar">
+            <div class="list-toolbar-left"><label class="select-all-wrap"><input type="checkbox" id="selectAllMessages"><span>Seleziona</span></label><button class="text-btn" id="markAllReadBtn">Segna visibili come lette</button><button class="text-btn danger-text" id="emptyFolderBtn" hidden></button></div>
+<div class="bulk-actions" id="bulkActions" hidden><strong id="selectedCounter">0 selezionati</strong><button class="text-btn" id="bulkReadBtn">Letti</button><button class="text-btn" id="bulkUnreadBtn">Non letti</button><button class="text-btn danger-text" id="bulkDeleteBtn">Cestino</button></div><span id="messageCounter">0 messaggi</span>
+          </div>
+
+          <div class="message-list" id="messageList" aria-live="polite"></div>
+
+          <div class="empty-state" id="emptyState" hidden>
+            <div class="empty-icon">✉</div>
+            <h2>Nessun messaggio</h2>
+            <p id="emptyText">Questa cartella è vuota.</p>
+          </div>
+        </section>
+
+        <section class="reader-panel" id="readerPanel">
+          <div class="reader-placeholder" id="readerPlaceholder">
+            <div class="reader-art">M</div>
+            <h2>La tua posta, senza distrazioni.</h2>
+            <p>Seleziona un messaggio per leggerlo qui.</p>
+          </div>
+
+          <article class="reader" id="reader" hidden>
+            <div class="reader-actions">
+              <button class="icon-btn mobile-back" id="closeReader" title="Torna ai messaggi">←</button>
+              <div class="reader-action-group">
+                <button class="action-btn" id="toggleReadBtn">Segna non letta</button>
+                <button class="action-btn" id="moveInboxBtn" hidden>In arrivo</button>
+                <button class="action-btn danger" id="trashBtn">Cestino</button>
+              </div>
+            </div>
+
+            <header class="message-head">
+              <span class="message-label" id="readerFolderLabel">MESSAGGIO</span>
+              <h2 id="readerSubject">Senza oggetto</h2>
+              <div class="sender-row">
+                <div class="sender-avatar" id="readerAvatar">M</div>
+                <div class="sender-meta">
+                  <strong id="readerFromName">Mittente</strong>
+                  <span id="readerFromEmail">—</span>
+                </div>
+                <time id="readerDate"></time>
+              </div>
+              <div class="recipient-row">A: <span id="readerTo">—</span></div>
+            </header>
+
+            <div class="message-body" id="messageBody"></div>
+            <div class="attachments" id="attachments" hidden></div>
+          </article>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="composeBackdrop" hidden></div>
+  <section class="compose-window" id="composeWindow" hidden aria-label="Nuovo messaggio">
+    <header class="compose-head">
+      <div><span class="status-dot"></span><strong>Nuovo messaggio</strong></div>
+      <button class="icon-btn" id="closeCompose" aria-label="Chiudi">✕</button>
+    </header>
+    <form id="composeForm">
+      <div class="compose-line"><label>Da</label><span id="composeFrom">—</span></div>
+      <div class="compose-line"><label for="composeTo">A</label><input id="composeTo" type="text" placeholder="nome@dominio.it, altro@dominio.it" required></div>
+      <div class="compose-line"><label for="composeCc">CC</label><input id="composeCc" type="text" placeholder="Copia conoscenza (opzionale)"></div>
+      <div class="compose-line"><label for="composeBcc">CCN</label><input id="composeBcc" type="text" placeholder="Copia nascosta (opzionale)"></div>
+      <div class="compose-line"><label for="composeSubject">Oggetto</label><input id="composeSubject" type="text" placeholder="Oggetto del messaggio"></div>
+      <div class="compose-toolbar" id="composeToolbar">
+<button type="button" data-cmd="bold"><b>B</b></button><button type="button" data-cmd="italic"><i>I</i></button><button type="button" data-cmd="underline"><u>U</u></button><button type="button" data-cmd="strikeThrough"><s>S</s></button>
+<button type="button" data-cmd="insertUnorderedList">•≡</button><button type="button" data-cmd="insertOrderedList">1≡</button><button type="button" id="insertLinkBtn">🔗</button>
+<label class="toolbar-file">🖼<input id="inlineImageInput" type="file" accept="image/*" hidden></label>
+<label class="toolbar-file">📎<input id="attachmentInput" type="file" multiple hidden></label>
+<label class="toolbar-file html-import">HTML<input id="htmlImportInput" type="file" accept=".html,.htm,text/html" hidden></label>
+</div>
+<div id="composeBody" class="compose-editor" contenteditable="true" data-placeholder="Scrivi il tuo messaggio…"></div>
+<div id="composeFiles" class="compose-files" hidden></div>
+      <footer class="compose-footer">
+        <span class="compose-hint">A, CC e CCN: separa più indirizzi con una virgola.</span>
+        <button type="submit" class="send-btn" id="sendBtn"><span>Invia</span><b>➤</b></button>
+      </footer>
+    </form>
+  </section>
+
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="webmail.js"></script>
+</body>
+</html>
